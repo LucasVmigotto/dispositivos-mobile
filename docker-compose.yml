@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  react:
+    build:
+      context: ./docker
+    command: yarn start
+    working_dir: /app
+    tty: true
+    environment:
+    - LOCAL_USER_ID
+    ports:
+    - 3000:3000
+    volumes:
+    - .:/app:delegated
+
+volumes:
+  home:
