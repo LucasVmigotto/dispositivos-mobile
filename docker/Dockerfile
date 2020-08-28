@@ -9,11 +9,13 @@ RUN chmod +x /usr/bin/gosu
 ENV TZ=America/Sao_Paulo
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
+RUN git clone https://gist.github.com/c9e335f85acb9bc27f0504563419a80a.git /usr/bin/entrypoint
+RUN chmod +x /usr/bin/entrypoint/entrypoint.sh
+
+RUN npm install -g expo-cli
 
 VOLUME /app
 WORKDIR /app
 
-ENTRYPOINT [ "/usr/bin/entrypoint.sh" ]
+ENTRYPOINT [ "/usr/bin/entrypoint/entrypoint.sh" ]
 CMD [ node ]
