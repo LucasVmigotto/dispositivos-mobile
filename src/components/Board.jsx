@@ -20,6 +20,26 @@ class Board extends React.Component {
       ? 'X'
       : 'O'
     this.setState({
+      squares,
+      xNext: !this.state.xNext
+    })
+  }
+
+  randomMove () {
+    if (calculateWinner(this.state.squares)) {
+      return
+    }
+    const squares = this.state.squares.slice()
+    const empty = this.state.squares.reduce(
+      (prv, crr, idx) => !crr
+        ? [ ...prv, idx]
+        : prv, [])
+    const index = Math.floor(
+      Math.random() * (empty.length - 0))
+    squares[empty[index]] = this.state.xNext
+      ? 'X'
+      : 'O'
+    this.setState({
       squares: squares,
       xNext: !this.state.xNext
     })
@@ -71,9 +91,12 @@ class Board extends React.Component {
           {this.renderSquare(7)}
           {this.renderSquare(8)}
         </div>
-        <div flex="column">
+        <div>
           <button onClick={() => {this.resetGame()}}>
             Reset
+          </button>
+          <button onClick={() => {this.randomMove()}}>
+            Random Move
           </button>
         </div>
       </div>
