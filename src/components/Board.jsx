@@ -3,7 +3,7 @@ import Square from './Square'
 import { calculateWinner } from '../utils'
 
 class Board extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       squares: Array(9).fill(null),
@@ -11,7 +11,7 @@ class Board extends React.Component {
     }
   }
 
-  handleClick(i) {
+  handleClick (i) {
     const squares = this.state.squares.slice()
     if (calculateWinner(squares) || squares[i]) {
       return
@@ -25,7 +25,7 @@ class Board extends React.Component {
     })
   }
 
-  renderSquare(i) {
+  renderSquare (i) {
     return (
       <Square
         value={this.state.squares[i]}
@@ -34,7 +34,13 @@ class Board extends React.Component {
     )
   }
 
-  render() {
+  resetGame () {
+    this.setState({
+      squares: Array(9).fill(null)
+    })
+  }
+
+  render () {
     const winner = calculateWinner(this.state.squares)
     let status
     if (winner) {
@@ -64,6 +70,11 @@ class Board extends React.Component {
           {this.renderSquare(6)}
           {this.renderSquare(7)}
           {this.renderSquare(8)}
+        </div>
+        <div flex="column">
+          <button onClick={() => {this.resetGame()}}>
+            Reset
+          </button>
         </div>
       </div>
     )
