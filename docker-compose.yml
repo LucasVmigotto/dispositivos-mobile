@@ -5,12 +5,13 @@ services:
     build:
       context: ./docker
     command: yarn start
-    working_dir: /app
+    working_dir: /app/src 
     tty: true
     environment:
     - LOCAL_USER_ID
     ports:
-    - 3000:3000
+    - 19000:19000
+    - 19002:19002
     volumes:
     - .:/app:delegated
 

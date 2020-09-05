@@ -2,6 +2,9 @@ FROM node:14.8-alpine
 
 RUN apk add --no-cache bash curl git shadow
 
+EXPOSE 19000
+EXPOSE 19002
+
 ENV GOSU_VERSION 1.10
 RUN curl -sS -Lo /usr/bin/gosu https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-amd64
 RUN chmod +x /usr/bin/gosu

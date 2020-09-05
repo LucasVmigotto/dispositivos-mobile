@@ -1,7 +1,16 @@
 {
-  "name": "tic-tac-toe",
+  "name": "dispositivos-mobile",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Lucas Vidor Migotto",
+    "email": "lvmigotto1@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "directory": "git@github.com:LucasVmigotto/dispositivos-mobile.git"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -9,12 +18,6 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
