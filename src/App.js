@@ -21,10 +21,18 @@ export default function App() {
     ])
   }
 
+  const removeContact = key => {
+    setContacts(contacts.filter(el =>
+      el.key !== key))
+  }
+
   return (
     <View style={ styles.container }>
       <ContactInput onAddContact={ addContact }/>
-      <ContactList contacts={ contacts }/>
+      <ContactList
+        contacts={ contacts }
+        onDeleteContact={ removeContact }
+      />
     </View>
   )
 }

@@ -1,16 +1,20 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-const Contact = ({ contact }) => {
+const Contact = ({ contact, onSetContact }) => {
   return (
-    <View style={ styles.itemOnList }>
-      <Text style={ styles.field }>
-        { contact.item.name }
-      </Text>
-      <Text style={ styles.field }>
-        { contact.item.phone }
-      </Text>
-    </View>
+    <TouchableOpacity onLongPress={
+      onSetContact.bind(this, contact.item.key)
+    }>
+      <View style={ styles.itemOnList }>
+        <Text style={ styles.field }>
+          { contact.item.name }
+        </Text>
+        <Text style={ styles.field }>
+          { contact.item.phone }
+        </Text>
+      </View>
+    </TouchableOpacity>
   )
 }
 
