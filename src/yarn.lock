@@ -2920,6 +2920,11 @@ http-errors@~1.7.2:
     statuses ">= 1.5.0 < 2"
     toidentifier "1.0.0"
 
+humps@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/humps/-/humps-2.0.1.tgz#dd02ea6081bd0568dc5d073184463957ba9ef9aa"
+  integrity sha1-3QLqYIG9BWjcXQcxhEY5V7qe+ao=
+
 hyphenate-style-name@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.0.4.tgz#691879af8e220aea5750e8827db4ef62a54e361d"
@@ -3939,6 +3944,11 @@ mkdirp@^0.5.1:
   integrity sha512-NKmAlESf6jMGym1++R0Ra7wvhV+wFW63FaSOFPwRahvea0gMUcGUhVeAg/0BC0wiv9ih5NYPB1Wn1UEI1/L+xQ==
   dependencies:
     minimist "^1.2.5"
+
+moment@^2.27.0:
+  version "2.27.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.27.0.tgz#8bff4e3e26a236220dfe3e36de756b6ebaa0105d"
+  integrity sha512-al0MUK7cpIcglMv3YF13qSgdAIqxHTO7brRtaz3DlSULbqfazqkc5kEjNrLDOM7fsjshoFIihnU8snrP7zUvhQ==
 
 ms@2.0.0:
   version "2.0.0"
