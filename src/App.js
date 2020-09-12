@@ -14,9 +14,11 @@ const API_KEY_WEATHER = 'e34280913cd763f37b7b1f3eab02124c'
 export default function App() {
   const [cityData, setCityData] = useState({})
   const [cityName, setCityName] = useState('')
+  const [onRequest, isOnRequest] = useState(false)
 
   const getCityData = async ({ name }) => {
     setCityName(name)
+    isOnRequest(true)
     Keyboard.dismiss()
     fetch(`${LOCATION_API}${prepareCityName(name)}&key=${API_KEY_LOCATION}`)
       .then(res => res.json())
@@ -26,11 +28,16 @@ export default function App() {
       })
       .then(res => res.json())
       .then(res => { setCityData(camelizeKeys({ ...res.current })) })
+      .finally(() => {
+        isOnRequest(false)
+      })
   }
 
   return (
     <View style={ styles.container }>
-      <CityInput onCitySelected={ getCityData }/>
+      <CityInput
+        onRequest={ onRequest }
+        onCitySelected={ getCityData }/>
       <CityWeather
         style={ styles.viewerInfo }
         city={ cityName }

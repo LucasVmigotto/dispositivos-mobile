@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, TextInput, View, StyleSheet } from 'react-native'
 
-const CityInput = ({ onCitySelected }) => {
+const CityInput = ({ onCitySelected, onRequest }) => {
   const [name, setName] = useState('')
   const putName = name =>
     setName(name)
@@ -16,6 +16,7 @@ const CityInput = ({ onCitySelected }) => {
       />
       <Button
         title="Get"
+        disabled={ onRequest }
         onPress={ () => { onCitySelected({ name }) } }
       />
     </View>
