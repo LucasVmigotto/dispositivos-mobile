@@ -1,23 +1,30 @@
 import React from 'react'
-import moment from 'moment'
-import { View, Text, StyleSheet } from 'react-native'
-
-const formatToDate = timestamp => timestamp
-  ? moment(timestamp).format('hh:mm a')
-  : ''
+import { View, Text, Image, StyleSheet } from 'react-native'
+import { createURI, formatToDate } from '../utils/index'
 
 const CityWeather = ({ city, data }) => {
+  const getURI = () =>
+    data.weather
+      ? { uri: createURI(data.weather[0].icon) }
+      : { uri: '' }
+
   return (
     <View style={ styles.card }>
-      <Text style={ styles.cityTitle }>{ city }</Text>
       <View style={ styles.cardRow }>
-        <Text style={ styles.cardCol4 }>
+        <Text style={ styles.cityTitle }>{ city }</Text>
+        <Image
+          style={ styles.cardIcon }
+          source={ getURI() }
+        />
+      </View>
+      <View style={ styles.cardColumn }>
+        <Text style={ styles.cardCol }>
           <Text style={ styles.label }>Nascer do Sol:</Text> { formatToDate(data.sunrise) }
         </Text>
-        <Text style={ styles.cardCol4 }>
+        <Text style={ styles.cardCol }>
           <Text style={ styles.label }>Por do Sol:</Text> { formatToDate(data.sunset) }
         </Text>
-        <Text style={ styles.cardCol4 }>
+        <Text style={ styles.cardCol }>
           <Text style={ styles.label }>Sensação Térmica:</Text> { data.feelsLike }&#176;C
         </Text>
       </View>
@@ -26,15 +33,19 @@ const CityWeather = ({ city, data }) => {
 }
 
 const styles = StyleSheet.create({
+  cardIcon: {
+    width: '20%'
+  },
   cityTitle: {
-    fontSize: '2rem',
-    fontWeight: 700,
+    width: '60%',
+    fontSize: 30,
+    fontWeight: '700',
     paddingTop: 30,
     paddingBottom: 30
   },
   card: {
     flexDirection: 'column',
-    backgroundColor: '#ccc',
+    backgroundColor: '#aaa',
     width: '90%',
     shadowColor: 'black',
     shadowOffset: {
@@ -50,18 +61,21 @@ const styles = StyleSheet.create({
   },
   cardRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
-  cardCol4: {
-    width: '30%',
-    fontSize: '1.3rem'
+  cardColumn: {
+    flexDirection: 'column',
+    justifyContent: 'space-between'
   },
-  cardCol12: {
-    width: '100%'
+  cardCol: {
+    width: '100%',
+    fontSize: 20,
+    marginTop: 10,
+    marginBottom: 10
   },
   label: {
-    fontSize: '1.4rem',
-    fontWeight: 500,
+    fontSize: 20,
+    fontWeight: '700',
     marginRight: 12
   }
 })
