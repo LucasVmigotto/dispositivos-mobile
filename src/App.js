@@ -1,10 +1,15 @@
-import CityInput from './components/CityInput'
 import React, { useState } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, Keyboard } from 'react-native'
+import { camelizeKeys } from 'humps'
 
-const API_KEY_WEATHER = '233d5607967b87c35d4c9dafa40c924d'
-const API_KEY_LOCATION = '390e92438973465ead1291dec62b525b'
+import CityInput from './components/CityInput'
+import CityWeather from './components/CityWeather'
+import { current } from './data/weather-info.json'
+
 const LOCATION_API = 'https://api.opencagedata.com/geocode/v1/json?q='
+const API_KEY_LOCATION = '390e92438973465ead1291dec62b525b'
+const WEATHER_API = 'https://api.openweathermap.org/data/2.5/onecall'
+const API_KEY_WEATHER = 'e34280913cd763f37b7b1f3eab02124c'
 
 const prepareCityName = cityName =>
   cityName
@@ -15,18 +20,28 @@ const prepareCityName = cityName =>
 
 export default function App() {
   const [cityData, setCityData] = useState({})
-  const getCityData = ({ name }) => {
-    fetch(`${LOCATION_API}${prepareCityName(name)}&key=${API_KEY_LOCATION}`)
-      .then(res => res.json())
-      .then(res => {
-        setCityData(res.results[0].geometry)
-      })
+  const [cityName, setCityName] = useState('')
+
+  const getCityData = async ({ name }) => {
+    setCityName(name)
+    Keyboard.dismiss()
+    // fetch(`${LOCATION_API}${prepareCityName(name)}&key=${API_KEY_LOCATION}`)
+    //   .then(res => res.json())
+    //   .then(async res => {
+    //     const { lat, lng} = res.results[0].geometry
+    //     return fetch(`${WEATHER_API}?lat=${lat}&lon=${lng}&units=metric&appid=${API_KEY_WEATHER}`)
+    //   })
+    //   .then(res => res.json())
+    //   .then(res => { setCityData(res) })
+    setCityData(camelizeKeys(current))
   }
 
   return (
     <View style={ styles.container }>
       <CityInput onCitySelected={ getCityData }/>
-      <Text>{ JSON.stringify(cityData) }</Text>
+      <CityWeather
+        city={ cityName }
+        data={ cityData } />
     </View>
   )
 }
