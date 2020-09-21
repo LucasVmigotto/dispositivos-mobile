@@ -2,12 +2,12 @@ import { Platform } from "react-native";
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from 'react-navigation';
 import Colors from '../constraints/colors'
-import NewContact from "../views/NewContact"
-import ContactList from '../views/ContactList'
+import NewContactView from "../views/NewContactView"
+import ContactListView from '../views/ContactListView'
 
 const ContactsNavigation = createStackNavigator ({
-  ContactList: ContactList,
-  NewContact: NewContact
+  ContactList: ContactListView,
+  NewContact: NewContactView
 }, {
   defaultNavigationOptions: {
     headerStyle: {

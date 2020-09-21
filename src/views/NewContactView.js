@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import ContactInput from '../components/ContactInput'
 
-const NewContact = props => {
+const NewContactView = props => {
   const [contactKey, setContactKey] = useState(8)
   const [contacts, setContacts] = useState([])
   const addContact = contact => {
@@ -22,4 +22,4 @@ const NewContact = props => {
 
 const styles = StyleSheet.create({})
 
-export default NewContact
+export default NewContactView

@@ -3,7 +3,7 @@ import { View, StyleSheet, Text } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import HeadButton from '../components/HeadButton'
 
-const ContactList = props => {
+const ContactListView = props => {
   return (
     <View>
       <Text>Lista de contatos</Text>
@@ -11,7 +11,7 @@ const ContactList = props => {
   )
 }
 
-ContactList.navigationOptions = dataNav => {
+ContactListView.navigationOptions = dataNav => {
   return {
     headerTitle: "Lista de contatos",
     headerRight:
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default ContactList
+export default ContactListView
