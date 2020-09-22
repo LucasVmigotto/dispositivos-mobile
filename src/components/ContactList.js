@@ -22,7 +22,8 @@ const ContactList = ({ contacts, onDeleteContact }) => {
 const styles = StyleSheet.create({
   itemList: {
     width: '90%',
-    marginTop: 10
+    marginTop: 10,
+    alignSelf: 'center'
   }
 })
 
