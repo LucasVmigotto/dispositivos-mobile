@@ -1,25 +1,14 @@
-import React, { useState } from 'react'
-import { View, StyleSheet, Text } from 'react-native'
-import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import React from 'react'
 import HeadButton from '../components/HeadButton'
 import ContactList from '../components/ContactList'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import { useSelector } from 'react-redux'
 
 const ContactListView = props => {
-  const [contacts, setContacts] = useState([
-    { key: '10', name: 'Lucas', phone: '99999999' }
-  ])
-  const removeContact = key => {
-    setContacts(contacts.filter(el =>
-      el.key !== key))
-  }
+  const contacts = useSelector(state => state.contacts.contacts)
 
   return (
-    <View>
-      <ContactList
-        contacts={ contacts }
-        onDeleteContact={ removeContact }
-      />
-    </View>
+    <ContactList contacts={ contacts }/>
   )
 }
 
@@ -44,7 +33,5 @@ ContactListView.navigationOptions = dataNav => {
       </HeaderButtons>
   }
 }
-
-const styles = StyleSheet.create({})
 
 export default ContactListView

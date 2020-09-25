@@ -1,26 +1,21 @@
 import React, { useState } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { useDispatch } from 'react-redux'
 import ContactInput from '../components/ContactInput'
+import * as contactsActions from '../store/contactsActions'
 
-const NewContactView = props => {
-  const [contactKey, setContactKey] = useState(10)
-  const [contacts, setContacts] = useState([])
-  const addContact = contact => {
-    setContactKey(contactKey + 2)
-    setContacts(contacts => [
-      ...contacts,
-      { key: contactKey.toString(), ...contact }
-    ])
-    console.log(`Contato adicionado: ${JSON.stringify({ key: contactKey.toString(), ...contact })}`)
-    props.navigation.navigate('ContactList', { contacts })
+const NewContactView = ({ navigation }) => {
+  const dispatch = useDispatch()
+  const [id, setId] = useState(10)
+  const addContact = ({ name, phone, picURI }) => {
+    setId(id + 2)
+    dispatch(contactsActions.addContact(
+      id.toString(), name, phone, picURI
+    ))
+    navigation.goBack()
   }
   return (
-    <View>
-      <ContactInput onAddContact={ addContact }/>
-    </View>
+    <ContactInput onAddContact={ addContact }/>
   )
 }
-
-const styles = StyleSheet.create({})
 
 export default NewContactView
