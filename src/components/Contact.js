@@ -1,17 +1,26 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity
+} from 'react-native'
+import Colors from '../constraints/colors'
 
-const Contact = ({ contact, onSetContact }) => {
+const Contact = ({ contact }) => {
   return (
-    <TouchableOpacity onLongPress={
-      onSetContact.bind(this, contact.item.key)
-    }>
-      <View style={ styles.itemOnList }>
-        <Text style={ styles.field }>
-          { contact.item.name }
+    <TouchableOpacity style={ styles.contactItem }>
+      <Image
+        style={ styles.image }
+        source={ { uri: contact.image }}
+      />
+      <View style={ styles.infoContainer }>
+        <Text style={ styles.name }>
+          { contact.name }
         </Text>
-        <Text style={ styles.field }>
-          { contact.item.phone }
+        <Text style={ styles.phone }>
+          { contact.phone }
         </Text>
       </View>
     </TouchableOpacity>
@@ -19,17 +28,36 @@ const Contact = ({ contact, onSetContact }) => {
 }
 
 const styles = StyleSheet.create({
-  itemOnList: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#EEE',
-    borderColor: '#000',
-    borderWidth: .7,
-    marginBottom: 8,
-    borderRadius: 8
+  contactItem: {
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1,
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    flexDirection: 'row',
+    alignItems: 'center'
   },
-  field: {
-    margin: 12
+  image: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: '#ccc',
+    borderColor: Colors.primary,
+    borderWidth: 1
+  },
+  infoContainer: {
+    marginLeft: 25,
+    width: 250,
+    justifyContent: 'center',
+    alignItems: 'flex-start'
+  },
+  name: {
+    color: 'black',
+    fontSize: 18,
+    marginBottom: 5
+  },
+  phone: {
+    color: '#666',
+    fontSize: 16
   }
 })
 
