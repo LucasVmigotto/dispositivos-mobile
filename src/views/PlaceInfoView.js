@@ -1,6 +1,5 @@
 
 import React from 'react'
-
 import {
   View,
   StyleSheet,
@@ -10,9 +9,15 @@ import {
 const PlaceInfoView = props => {
   return (
     <View>
-      <Text>PlaceInfoView</Text>
+      <Text>Detalhes</Text>
     </View>
   )
+}
+
+PlaceInfoView.navigationOptions = dataNav => {
+  return {
+    headerTitle: dataNav.navigation.getParam('placeTitle')
+  }
 }
 
 const styles = StyleSheet.create({

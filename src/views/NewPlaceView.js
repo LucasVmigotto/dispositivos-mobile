@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import { useDispatch } from 'react-redux'
 import {
   View,
   StyleSheet,
@@ -8,11 +8,27 @@ import {
   TextInput,
   Button
 } from 'react-native'
+import * as placesActions from '../store/placesActions'
+import TakePicture from '../components/TakePicture'
+
 
 const NewPlaceView = props => {
+  const dispatch = useDispatch()
+  const [picURI, setPicURI] = useState()
+  const pictureHandler = uri => {
+    setPicURI(uri)
+  }
   const [place, setPlace] = useState ('')
-  const addPlace = value => {
-    setPlace(value)
+  const setPlaceChange = place => {
+    setPlace(place)
+  }
+  const addPlace = () => {
+    dispatch(placesActions.addPlace(place, picURI))
+    console.log(`
+      Place: ${place}
+      URI: ${picURI}
+    `)
+    props.navigation.goBack()
   }
   return (
       <ScrollView>
@@ -20,17 +36,14 @@ const NewPlaceView = props => {
           <Text style={ styles.titulo }>Novo Lugar</Text>
           <TextInput
             style={ styles.textInput }
-            onChangeText={ addPlace }
+            onChangeText={ setPlaceChange }
             value={ place }
           />
+          <TakePicture onTakePicture={ pictureHandler }/>
           <Button
             title="Salvar lugar"
-            onPress={
-              () => {
-                setPlace('')
-                console.log(`Botão para adição de lugar clicado: ${place}`)
-              }
-            }/>
+            onPress={ addPlace }
+          />
         </View>
       </ScrollView>
   )

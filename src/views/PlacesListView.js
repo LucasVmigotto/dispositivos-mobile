@@ -1,18 +1,37 @@
 import React from 'react'
-
+import HeadButton from '../components/HeadButton'
+import PlaceItem from '../components/PlaceItem'
 import {
-  View,
   StyleSheet,
-  Text, Platform
+  Platform,
+  FlatList,
+  Text
 } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
-import HeadButton from '../components/HeadButton'
+import { useSelector } from 'react-redux'
+
 
 const PlacesList = props => {
+  const places = useSelector(state => state.places.places)
   return (
-    <View>
-      <Text>PlacesList</Text>
-    </View>
+    <FlatList
+      data={ places }
+      keyExtractor={ place => place.id }
+      renderItem={
+        place =>
+          <PlaceItem
+            image={ place.item.image }
+            placeName={ place.item.name }
+            address={ null }
+            onSelect={ () =>
+              props.navigation.navigate('PlaceInfo', {
+                placeId: place.item.id,
+                placeTitle: place.item.name
+              })
+            }
+          />
+      }
+    />
   )
 }
 
