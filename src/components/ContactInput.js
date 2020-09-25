@@ -1,12 +1,20 @@
 import React, { useState } from 'react'
+import TakePicture from '../components/TakePicture'
 import {
   View,
+  Text,
   TextInput,
   Button,
-  StyleSheet
+  StyleSheet,
+  ScrollView
 } from 'react-native'
 
 const ContactInput = ({ onAddContact }) => {
+
+  const [picURI, setPicURI] = useState()
+  const pictureHandler = uri => {
+    setPicURI(uri)
+  }
   const [name, setName] = useState('')
   const putName = name =>
     setName(name)
@@ -16,40 +24,48 @@ const ContactInput = ({ onAddContact }) => {
     setPhone(phone)
 
   return (
-    <View style={ styles.formData }>
-      <TextInput
-        placeholder="John Doe"
-        style={ styles.input }
-        onChangeText={putName}
-        value={ name }
-      />
-      <TextInput
-        placeholder="9999-9999"
-        style={ styles.input }
-        onChangeText={putPhone}
-        value={ phone }
-      />
-      <Button
-        title="Adicionar"
-        onPress={ () => { onAddContact({ name, phone }) } }
-      />
-    </View>
+    <ScrollView>
+      <View style={ styles.form }>
+        <Text style={ styles.title }>
+          Novo contato
+        </Text>
+        <TextInput
+          placeholder="John Doe"
+          style={ styles.textInput }
+          onChangeText={putName}
+          value={ name }
+        />
+        <TextInput
+          placeholder="9999-9999"
+          style={ styles.textInput }
+          onChangeText={putPhone}
+          value={ phone }
+        />
+        <TakePicture onTakePicture={ pictureHandler }/>
+        <Button
+          title="Adicionar"
+          onPress={ () => {
+            onAddContact({ name, phone, picURI })
+          } }
+        />
+      </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
-  formData: {
-    width: '100%',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    alignItems: 'center'
+  form: {
+    margin: 30
   },
-  input: {
-    width: '90%',
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
-    marginBottom: 4,
-    paddingTop: 20
+  title: {
+    fontSize: 18,
+    marginBottom: 12
+  },
+  textInput: {
+    borderBottomColor: '#CCC',
+    borderBottomWidth: 2,
+    marginBottom: 12,
+    paddingVertical: 8
   }
 })
 
