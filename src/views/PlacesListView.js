@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import HeadButton from '../components/HeadButton'
 import PlaceItem from '../components/PlaceItem'
 import {
@@ -8,11 +8,17 @@ import {
   Text
 } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
-import { useSelector } from 'react-redux'
-
+import { useSelector, useDispatch } from 'react-redux'
+import * as placesActions from '../store/placesActions'
 
 const PlacesList = props => {
   const places = useSelector(state => state.places.places)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(placesActions.getPlaces())
+  }, [dispatch])
+
   return (
     <FlatList
       data={ places }
