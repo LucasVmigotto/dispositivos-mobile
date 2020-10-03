@@ -5,11 +5,9 @@ import * as contactsActions from '../store/contactsActions'
 
 const NewContactView = ({ navigation }) => {
   const dispatch = useDispatch()
-  const [id, setId] = useState(10)
   const addContact = ({ name, phone, picURI }) => {
-    setId(id + 2)
     dispatch(contactsActions.addContact(
-      id.toString(), name, phone, picURI
+      name, phone, picURI
     ))
     navigation.goBack()
   }

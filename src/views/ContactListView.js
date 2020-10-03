@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import HeadButton from '../components/HeadButton'
 import ContactList from '../components/ContactList'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import * as contactsActions from '../store/contactsActions'
 
 const ContactListView = props => {
   const contacts = useSelector(state => state.contacts.contacts)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(contactsActions.getContacts())
+  }, [dispatch])
 
   return (
     <ContactList contacts={ contacts }/>
