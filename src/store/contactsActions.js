@@ -3,7 +3,10 @@ import { insertContact, listContacts } from '../helpers/db'
 
 export const ADD_CONTACT = 'ADD_CONTACT'
 
-export const addContact = (name, phone, image) => {
+export const addContact = (name, phone, image, location) => {
+  console.log({
+    name, phone, image, location
+  })
   return async dispatch => {
     const filename = image.split('/').pop()
     const newPath = FileSystem.documentDirectory + filename
@@ -12,8 +15,9 @@ export const addContact = (name, phone, image) => {
         from: image,
         to: newPath
       })
+      const createAt = new Date().toISOString()
       const resultDB = await insertContact(
-        name, phone, newPath
+        name, phone, newPath, location, createAt
       )
       dispatch({
         type: ADD_CONTACT,
@@ -21,7 +25,9 @@ export const addContact = (name, phone, image) => {
           id: resultDB.insertId,
           name,
           phone,
-          image: newPath
+          image: newPath,
+          location,
+          createAt
         }
       })
     } catch (err) {
