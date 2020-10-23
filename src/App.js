@@ -5,7 +5,7 @@ import placesReducer from './store/placesReducer';
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import reduxThunk from 'redux-thunk';
-import { init, desc } from './helpers/db'
+import { init } from './helpers/db'
 
 init()
   .then(() => {
@@ -14,11 +14,6 @@ init()
   .catch(err => {
     console.log('An error occurred during the database created')
     console.log(err)
-  })
-
-desc()
-  .then(res => {
-    console.log(res)
   })
 
 const rootReducer = combineReducers({
