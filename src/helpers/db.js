@@ -10,7 +10,9 @@ export const init = () => {
           id INTEGER PRIMARY KEY,
           name TEXT NOT NULL,
           phone TEXT NOT NULL,
-          image_uri TEXT NOT NULL
+          image_uri TEXT NOT NULL,
+          location TEXT NOT NULL,
+          create_at TEXT NOT NULL
         );`,
         [],
         () => { res() },
@@ -20,17 +22,19 @@ export const init = () => {
   return promise
 }
 
-export const insertContact = (name, phone, imageUri) => {
+export const insertContact = (name, phone, imageUri, location, createAt) => {
   const promise = new Promise((res, rej) => {
     db.transaction(tx => {
       tx.executeSql(`
         INSERT INTO tb_contact (
           name,
           phone,
-          image_uri
-        ) VALUES (?,?,?);
+          image_uri,
+          location,
+          create_at
+        ) VALUES (?,?,?,?,?);
         `,
-        [name, phone, imageUri],
+        [name, phone, imageUri, JSON.stringify(location), createAt],
         (_, result) => { res(result) },
         (_, err) => { rej(err) })
     })
