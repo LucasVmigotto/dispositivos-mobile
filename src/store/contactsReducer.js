@@ -14,7 +14,9 @@ export default (state = initialState, action) => {
             id: action.data.id.toString(),
             name: action.data.name,
             phone: action.data.phone,
-            image: action.data.image
+            image: action.data.image,
+            location: action.data.location,
+            createAt: action.data.createAt
           })
         )
       })
