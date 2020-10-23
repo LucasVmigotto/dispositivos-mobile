@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import * as placesActions from '../store/placesActions'
 import TakePicture from '../components/TakePicture'
+import GetLocation from '../components/GetLocation'
 
 
 const NewPlaceView = props => {
@@ -40,6 +41,7 @@ const NewPlaceView = props => {
             value={ place }
           />
           <TakePicture onTakePicture={ pictureHandler }/>
+          <GetLocation />
           <Button
             title="Salvar lugar"
             onPress={ addPlace }
