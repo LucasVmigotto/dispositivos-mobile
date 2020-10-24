@@ -27,7 +27,9 @@ export default (state = initialState, action) => {
             id: el.id.toString(),
             name: el.name,
             phone: el.phone,
-            image: el.image
+            image: el.image_uri,
+            location: JSON.parse(el.location),
+            createAt: el.create_at
           }))
       }
     default:

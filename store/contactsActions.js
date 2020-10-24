@@ -43,6 +43,7 @@ export const getContacts = () => {
   return async dispatch => {
     try {
       const resultDB = await listContacts()
+      console.log(resultDB.rows._array)
       dispatch({
         type: LIST_CONTACTS,
         contacts: resultDB.rows._array
