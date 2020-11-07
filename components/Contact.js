@@ -3,8 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
-  TouchableOpacity
+  Image
 } from 'react-native'
 import Colors from '../constraints/colors'
 import moment from 'moment'
@@ -12,7 +11,7 @@ import moment from 'moment'
 const Contact = ({ contact }) => {
   const { lat, lng } = JSON.parse(contact.location)
   return (
-    <TouchableOpacity style={ styles.contactItem }>
+    <View style={ styles.contactItem }>
       <Image
         style={ styles.image }
         source={ { uri: contact.image }}
@@ -34,7 +33,7 @@ const Contact = ({ contact }) => {
           { `Create at: ${moment(contact.createAt).format('DD/MM/YYYY HH:mm:ss')}` }
         </Text>
       </View>
-    </TouchableOpacity>
+    </View>
   )
 }
 
