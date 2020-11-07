@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import 'firebase/firestore'
+import React from 'react'
 import ContactInput from '../components/ContactInput'
-import * as contactsActions from '../store/contactsActions'
+import * as FileSystem from 'expo-file-system'
 import * as Location from 'expo-location'
 import * as Permissions from 'expo-permissions'
+import * as firebase from 'firebase'
 
 const NewContactView = ({ navigation }) => {
-  const dispatch = useDispatch()
+  const db = firebase.firestore()
 
   const verifyPermissions = async () => {
     const result = await Permissions
@@ -44,11 +45,31 @@ const NewContactView = ({ navigation }) => {
   }
 
   const addContact = async ({ name, phone, picURI }) => {
-    const location = JSON.stringify(await getLocation())
-    dispatch(contactsActions.addContact(
-      name, phone, picURI, location
-    ))
-    navigation.goBack()
+    try {
+      const filename = picURI.split('/').pop()
+      const newPath = FileSystem.documentDirectory + filename
+      await FileSystem.moveAsync({
+        from: picURI,
+        to: newPath
+      })
+      const location = JSON.stringify(await getLocation())
+      db.collection('contacts')
+        .add({
+          name,
+          phone,
+          picURI: newPath,
+          location,
+          createAt: new Date().toISOString()
+        }).then(docRef => {
+          docRef.update({
+            id: docRef.id
+          })
+          navigation.goBack()
+        })
+    } catch (err) {
+      console.log(err)
+      throw err
+    }
   }
 
   return (
