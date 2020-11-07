@@ -1,25 +1,20 @@
-
-import React from 'react';
-import ContactsNavigation from './navigation/ContactsNavigation';
-import reduxThunk from 'redux-thunk'
-import contactsReducer from './store/contactsReducer';
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import 'firebase/firestore'
+import React from 'react'
+import ContactsNavigation from './navigation/ContactsNavigation'
+import firebase from 'firebase/app'
+import ENV from './env'
+import { rootReducer } from './store/reducer'
+import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { init } from './helpers/db'
 
-init()
-  .then(() => {
-    console.log('Database successully created')
-  })
-  .catch(() => {
-    console.log('An error occurred while creating database')
-  })
+if (!firebase.apps.length) {
+  firebase.initializeApp(ENV)
+}
+firebase.firestore()
 
-const rootReducer = combineReducers({
-  contacts: contactsReducer
-})
+const initialState = {}
 
-const store = createStore(rootReducer, applyMiddleware(reduxThunk))
+const store = createStore(rootReducer, initialState)
 
 export default function App() {
   return (
