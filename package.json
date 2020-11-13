@@ -1,5 +1,5 @@
 {
-    "name": "dispositivos-mobile",
+    "name": "restaurant",
     "version": "0.0.0",
     "description": "Template de projeto mobile usando expo",
     "main": "node_modules/expo/AppEntry.js",
@@ -18,11 +18,20 @@
         "expo-cli": "^3.28.5"
     },
     "dependencies": {
+        "@react-native-community/masked-view": "0.1.10",
         "expo": "^39.0.4",
+        "expo-image-picker": "~9.1.1",
         "expo-status-bar": "^1.0.2",
+        "firebase": "^8.0.2",
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
         "react-native": "^0.63.3",
-        "react-native-web": "^0.14.8"
+        "react-native-gesture-handler": "~1.7.0",
+        "react-native-reanimated": "~1.13.0",
+        "react-native-safe-area-context": "3.1.4",
+        "react-native-screens": "~2.10.1",
+        "react-native-web": "^0.14.8",
+        "react-navigation": "^4.4.3",
+        "react-navigation-stack": "^2.10.1"
     }
 }
