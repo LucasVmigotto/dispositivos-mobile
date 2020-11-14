@@ -1,13 +1,22 @@
+
 import 'firebase/firestore'
-import React from 'react'
-import ContactInput from '../components/ContactInput'
-import * as FileSystem from 'expo-file-system'
+import 'firebase/storage'
+import 'firebase/database'
+import * as firebase from 'firebase'
 import * as Location from 'expo-location'
 import * as Permissions from 'expo-permissions'
-import * as firebase from 'firebase'
+import React from 'react'
+import ContactInput from '../components/ContactInput'
+
+const firestore = firebase.firestore()
+const storage = firebase.storage()
+const database = firebase.database()
+
+const contactsCollection = firestore.collection("contacts")
+const imagesRef = storage.ref("images")
+const imagesCounterRef = database.ref('imagesCounter')
 
 const NewContactView = ({ navigation }) => {
-  const db = firebase.firestore()
 
   const verifyPermissions = async () => {
     const result = await Permissions
@@ -46,26 +55,36 @@ const NewContactView = ({ navigation }) => {
 
   const addContact = async ({ name, phone, picURI }) => {
     try {
-      const filename = picURI.split('/').pop()
-      const newPath = FileSystem.documentDirectory + filename
-      await FileSystem.moveAsync({
-        from: picURI,
-        to: newPath
-      })
       const location = JSON.stringify(await getLocation())
-      db.collection('contacts')
-        .add({
-          name,
-          phone,
-          picURI: newPath,
-          location,
-          createAt: new Date().toISOString()
-        }).then(docRef => {
-          docRef.update({
-            id: docRef.id
-          })
-          navigation.goBack()
-        })
+      console.log({
+        name,
+        phone,
+        picURI,
+        location,
+        createAt: new Date().toISOString()
+      })
+
+      const picture = await fetch(picURI);
+      const blob = await picture.blob();
+      const idImage = (await imagesCounterRef.once('value'))
+        .val()
+        .toString()
+      await imagesRef
+        .child(idImage)
+        .put(blob)
+      const downloadURL = await imagesRef
+        .child(idImage)
+        .getDownloadURL()
+      imagesCounterRef.set(+idImage + 1)
+      contactsCollection.add({
+        name,
+        phone,
+        picURI: downloadURL,
+        location,
+        createAt: new Date().toISOString()
+      })
+
+      navigation.goBack()
     } catch (err) {
       console.log(err)
       throw err
