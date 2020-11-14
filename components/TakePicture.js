@@ -6,7 +6,8 @@ import {
   Text,
   StyleSheet,
   Image,
-  Button
+  Button,
+  Alert
 } from 'react-native'
 
 const TakePicture = ({ onTakePicture }) => {
@@ -19,6 +20,32 @@ const TakePicture = ({ onTakePicture }) => {
     })
     setPicURI(pic.uri)
     onTakePicture(pic.uri)
+  }
+
+  const choosePicture = async () => {
+    const pic = await imagePicker.launchImageLibraryAsync({
+      quality: 1,
+      base64: true
+    })
+    setPicURI(pic.uri)
+    onTakePicture(pic.uri)
+  }
+
+  const getImage = () => {
+    Alert.alert(
+      'Imagem',
+      'Como escolher a imagem?',
+      [
+        {
+          text: 'Câmera',
+          onPress: () => takePic()
+        },
+        {
+          text: 'Galeria',
+          onPress: () => choosePicture()
+        }
+      ]
+    )
   }
 
   return (
@@ -34,9 +61,9 @@ const TakePicture = ({ onTakePicture }) => {
         }
       </View>
       <Button
-        title="Tirar foto"
+        title="Escolher Foto"
         color={ Colors.primary }
-        onPress={ takePic }
+        onPress={ getImage }
       />
     </View>
   )
