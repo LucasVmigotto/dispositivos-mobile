@@ -32,13 +32,13 @@ const ContactInput = ({ onAddContact }) => {
         <TextInput
           placeholder="John Doe"
           style={ styles.textInput }
-          onChangeText={putName}
+          onChangeText={ putName }
           value={ name }
         />
         <TextInput
           placeholder="9999-9999"
           style={ styles.textInput }
-          onChangeText={putPhone}
+          onChangeText={ putPhone }
           value={ phone }
         />
         <TakePicture onTakePicture={ pictureHandler }/>
