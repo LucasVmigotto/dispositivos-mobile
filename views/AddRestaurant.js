@@ -14,11 +14,6 @@ import {
   TouchableOpacity
 } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
-import ENV from '../env'
-
-if (!firebase.apps.length) {
-  firebase.initializeApp(ENV)
-}
 
 const firestore = firebase.firestore()
 const storage = firebase.storage()
